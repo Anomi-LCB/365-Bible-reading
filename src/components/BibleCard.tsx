@@ -29,7 +29,7 @@ export default function BibleCard({ plan, isCompleted, onToggle }: BibleCardProp
         <div
             className={cn(
                 "relative overflow-hidden rounded-[2.8rem] p-7 transition-all duration-500",
-                "bg-card shadow-premium dark:shadow-premium-dark ring-1 ring-border dark:ring-slate-800",
+                "bg-card ring-1 ring-border dark:ring-slate-800",
                 isCompleted
                     ? "border-emerald-100/50 dark:border-emerald-900/20 shadow-none opacity-80"
                     : ""
@@ -39,14 +39,14 @@ export default function BibleCard({ plan, isCompleted, onToggle }: BibleCardProp
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5 bg-muted px-2.5 py-1 rounded-lg">
                         <Calendar size={10} className="text-[#4E56D1] dark:text-indigo-400" strokeWidth={2.5} />
-                        <span className="text-[9px] font-bold text-[#4E56D1] dark:text-indigo-400 uppercase tracking-wider">Plan Day {plan.day_of_year}</span>
+                        <span className="text-[9px] font-bold text-black dark:text-indigo-400 uppercase tracking-wider">Plan Day {plan.day_of_year}</span>
                     </div>
                 </div>
 
                 <div className="space-y-3">
                     <h2 className={cn(
                         "text-[1.65rem] font-bold tracking-tight leading-snug transition-all duration-500",
-                        isCompleted ? "text-slate-300 dark:text-slate-600 line-through decoration-slate-200 dark:decoration-slate-700 decoration-1" : "text-slate-800 dark:text-slate-100"
+                        isCompleted ? "text-slate-300 dark:text-slate-600 line-through decoration-slate-200 dark:decoration-slate-700 decoration-1" : "text-black dark:text-slate-100"
                     )}>
                         {plan.title}
                     </h2>
