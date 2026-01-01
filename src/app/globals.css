@@ -3,10 +3,11 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 10%;
+    --foreground: 0 0% 0%;
+    /* absolute black #000000 */
     /* #0F172A - 진한 검정색 계열 */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 10%;
+    --card-foreground: 0 0% 0%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
     --primary: 231 60% 56%;
@@ -24,9 +25,9 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.75rem;
-    --shadow-premium: 4px 4px 0px 0px rgba(15, 23, 42, 0.05);
+    --shadow-premium: none;
     /* 방향성 있는 두께감 있는 그림자 */
-    --shadow-premium-dark: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    --shadow-premium-dark: none;
   }
 
   .dark {
@@ -50,8 +51,8 @@
     /* 다소 구분 가능한 밝은계열 테두리 (slate-700 수준) */
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
-    --shadow-premium: 4px 4px 15px 0px rgba(0, 0, 0, 0.4);
-    --shadow-premium-dark: 0px 0px 0px 1px rgba(148, 163, 184, 0.2);
+    --shadow-premium: none;
+    --shadow-premium-dark: none;
     /* 은은한 테두리 광 */
   }
 }

@@ -71,7 +71,7 @@ export default function BibleProgressMap({ completedVerses }: BibleProgressMapPr
     };
 
     return (
-        <div className="bg-card rounded-[2.5rem] border border-border dark:border-slate-800 shadow-premium dark:shadow-premium-dark overflow-hidden">
+        <div className="bg-card rounded-[2.5rem] border border-border dark:border-slate-800 overflow-hidden">
             <div className="px-6 py-5 border-b border-slate-50 dark:border-slate-800 flex items-center justify-between bg-slate-50/30 dark:bg-slate-900/10">
                 <button
                     onClick={() => setIsExpanded(!isExpanded)}
@@ -81,7 +81,7 @@ export default function BibleProgressMap({ completedVerses }: BibleProgressMapPr
                         <Grid3X3 size={16} className="text-white" />
                     </div>
                     <div className="text-left">
-                        <h3 className="text-sm font-bold text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-1.5">
+                        <h3 className="text-sm font-bold text-black dark:text-slate-100 tracking-tight flex items-center gap-1.5">
                             성경 읽기표
                             <ChevronRight size={14} className={`text-slate-400 dark:text-slate-600 transition-transform duration-300 ${isExpanded ? 'rotate-90' : ''}`} />
                         </h3>
@@ -155,7 +155,7 @@ export default function BibleProgressMap({ completedVerses }: BibleProgressMapPr
             {selectedBook && (
                 <div className="fixed inset-0 z-[100] flex items-end justify-center px-4 pb-4 animate-in fade-in duration-300">
                     <div className="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onClick={() => setSelectedBook(null)} />
-                    <div className="relative w-full max-w-md bg-card/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-[3rem] shadow-premium dark:shadow-premium-dark overflow-hidden animate-in slide-in-from-bottom duration-500 ring-1 ring-border dark:ring-slate-700">
+                    <div className="relative w-full max-w-md bg-card/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-[3rem] overflow-hidden animate-in slide-in-from-bottom duration-500 ring-1 ring-border dark:ring-slate-700">
                         <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800">
                             <div className="flex items-center justify-between mb-2">
                                 <h4 className="text-xl font-black text-slate-800 dark:text-white uppercase tracking-tight leading-none mb-1">{selectedBook.name}</h4>

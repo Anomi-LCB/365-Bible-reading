@@ -67,8 +67,10 @@ export default function BibleCard({ plan, isCompleted, onToggle }: BibleCardProp
                         )}
 
                         {/* 2번째 줄: 요약 */}
-                        <div className="flex gap-2">
-                            <span className="text-[12px] mt-0.5">💡</span>
+                        <div className="flex flex-col">
+                            <h2 className="text-2xl font-black text-black dark:text-white leading-none tracking-tight mb-2">
+                                {plan.title.split('(')[0].trim()}
+                            </h2>
                             <p className={cn(
                                 "text-[12px] font-bold leading-relaxed tracking-tight flex flex-wrap gap-x-1.5",
                                 isCompleted ? "text-slate-300 dark:text-slate-600" : "text-[#4E56D1] dark:text-indigo-400"
