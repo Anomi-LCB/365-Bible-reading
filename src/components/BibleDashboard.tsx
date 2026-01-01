@@ -5,7 +5,7 @@ import { format, addDays, subDays } from "date-fns";
 import {
     BookOpen, Trophy, Flame,
     Youtube, ExternalLink, PlayCircle,
-    MapPin
+    MapPin, Moon, Sun
 } from "lucide-react";
 import { BibleReadingPlan } from "@/types/bible";
 import DateNavigator from "./DateNavigator";
@@ -17,6 +17,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import ChurchLogo from "./ChurchLogo";
 import { getOfficialCategory, generateKeywords, calculateReadingTime } from "@/lib/bible-utils";
 import YoutubePlayer from "./YoutubePlayer";
+import { useTheme } from "next-themes";
 import { fetchYoutubePlaylist, getDayOfYear, getVideoForDay, parseDurationToMinutes, YoutubeVideo } from "@/lib/youtube";
 import { Play, Loader2, Youtube as YoutubeIcon, Info } from 'lucide-react';
 
@@ -37,6 +38,8 @@ export default function BibleDashboard({
     appSettings,
     initialDate
 }: BibleDashboardProps) {
+    const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
     const supabase = createClient();
@@ -91,6 +94,11 @@ export default function BibleDashboard({
             }
         }
     }, [searchParams, isGuest, allPlans]);
+
+    // 하이드레이션 에러 방지
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const handleDateChange = (newDateStr: string) => {
         setSelectedDate(newDateStr);
@@ -222,20 +230,28 @@ export default function BibleDashboard({
     const ntLink = "https://www.youtube.com/playlist?list=PLVcVykBcFZTSM0ueQRAzrlRw42mmaUL6U";
 
     return (
-        <main className="min-h-screen bg-[#FBFAF8] text-[#334155] antialiased tracking-normal flex flex-col">
-            <header className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-slate-200/40 flex items-center justify-between px-5 py-3">
+        <main className="min-h-screen bg-background text-foreground antialiased tracking-normal flex flex-col transition-colors duration-300">
+            <header className="sticky top-0 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-slate-200/40 dark:border-slate-800/40 flex items-center justify-between px-5 py-3">
                 <div className="flex items-center gap-2.5">
-                    <div className="bg-[#4E56D1] p-1.5 rounded-lg shadow-sm">
+                    <div className="bg-[#4E56D1] dark:bg-indigo-500 p-1.5 rounded-lg shadow-sm">
                         <BookOpen className="text-white" size={15} strokeWidth={2.5} />
                     </div>
-                    <h1 className="text-base font-bold text-[#1E293B] tracking-tight">성경 365</h1>
+                    <h1 className="text-base font-bold text-[#1E293B] dark:text-slate-100 tracking-tight">성경 365</h1>
                 </div>
 
                 <div className="flex items-center gap-2">
+                    {mounted && (
+                        <button
+                            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                            className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400"
+                        >
+                            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                        </button>
+                    )}
                     <a
                         href={introLink}
                         target="_blank"
-                        className="flex items-center gap-1.5 bg-[#F8FAFF] border border-indigo-50 px-3 py-1.5 rounded-full text-[10px] font-semibold text-[#4E56D1] hover:bg-white transition-all shadow-sm"
+                        className="flex items-center gap-1.5 bg-[#F8FAFF] dark:bg-slate-800 border border-indigo-50 dark:border-slate-700 px-3 py-1.5 rounded-full text-[10px] font-semibold text-[#4E56D1] dark:text-indigo-400 hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm"
                     >
                         <PlayCircle size={12} strokeWidth={2} />
                         공동체 성경읽기란?
@@ -251,35 +267,35 @@ export default function BibleDashboard({
                     />
                     {weather && (
                         <div className="flex justify-center items-center gap-4 text-[10px] font-medium tracking-wider text-[#94A3B8] uppercase">
-                            <div className="flex items-center gap-1.5 border-r border-slate-200/60 pr-4">
-                                <MapPin size={11} className="text-[#4E56D1]/30" strokeWidth={2.5} />
+                            <div className="flex items-center gap-1.5 border-r border-slate-200/60 dark:border-slate-700/60 pr-4">
+                                <MapPin size={11} className="text-[#4E56D1]/30 dark:text-indigo-400/30" strokeWidth={2.5} />
                                 <span>Mokpo</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="text-slate-600 font-semibold">{weather.temp}°C</span>
-                                <span className="text-slate-400">{weather.description}</span>
+                                <span className="text-slate-600 dark:text-slate-300 font-semibold">{weather.temp}°C</span>
+                                <span className="text-slate-400 dark:text-slate-500">{weather.description}</span>
                             </div>
                         </div>
                     )}
                 </section>
 
                 <section className="flex gap-3">
-                    <div className="flex-1 bg-white p-4 rounded-3xl border border-slate-100 flex items-center gap-3.5 shadow-sm">
-                        <div className="bg-orange-50 p-2 rounded-xl">
+                    <div className="flex-1 bg-card p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center gap-3.5 shadow-sm">
+                        <div className="bg-orange-50 dark:bg-orange-900/20 p-2 rounded-xl">
                             <Flame size={16} className="text-orange-500" strokeWidth={2} />
                         </div>
                         <div>
-                            <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-tight leading-none mb-1">연속읽기</p>
-                            <p className="text-base font-bold text-slate-800 leading-none">{streak}일</p>
+                            <p className="text-[9px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-tight leading-none mb-1">연속읽기</p>
+                            <p className="text-base font-bold text-slate-800 dark:text-slate-100 leading-none">{streak}일</p>
                         </div>
                     </div>
-                    <div className="flex-1 bg-white p-4 rounded-3xl border border-slate-100 flex items-center gap-3.5 shadow-sm">
-                        <div className="bg-[#E6F7F5] p-2 rounded-xl">
+                    <div className="flex-1 bg-card p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center gap-3.5 shadow-sm">
+                        <div className="bg-[#E6F7F5] dark:bg-teal-900/20 p-2 rounded-xl">
                             <Trophy size={16} className="text-[#3DAA9C]" strokeWidth={2} />
                         </div>
                         <div>
-                            <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-tight leading-none mb-1">전체 진행상황</p>
-                            <p className="text-base font-bold text-slate-800 leading-none">{progressPercent}%</p>
+                            <p className="text-[9px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-tight leading-none mb-1">전체 진행상황</p>
+                            <p className="text-base font-bold text-slate-800 dark:text-slate-100 leading-none">{progressPercent}%</p>
                         </div>
                     </div>
                 </section>
@@ -287,11 +303,11 @@ export default function BibleDashboard({
                 <section className="space-y-4">
                     <div className="flex items-center justify-between px-1">
                         <div className="flex items-center gap-2">
-                            <div className="w-1.5 h-4 bg-[#4E56D1] rounded-full"></div>
-                            <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Today's Plan</h3>
+                            <div className="w-1.5 h-4 bg-[#4E56D1] dark:bg-indigo-500 rounded-full"></div>
+                            <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Today's Plan</h3>
                         </div>
-                        <div className="flex items-center gap-2 bg-indigo-50/50 px-2.5 py-1 rounded-full border border-indigo-100/30">
-                            <span className="text-[9px] text-[#4E56D1] font-bold">D-{daysLeft} Left</span>
+                        <div className="flex items-center gap-2 bg-indigo-50/50 dark:bg-indigo-900/20 px-2.5 py-1 rounded-full border border-indigo-100/30 dark:border-indigo-800/30">
+                            <span className="text-[9px] text-[#4E56D1] dark:text-indigo-400 font-bold">D-{daysLeft} Left</span>
                         </div>
                     </div>
                     {targetPlan ? (
@@ -301,8 +317,8 @@ export default function BibleDashboard({
                             onToggle={() => handleToggle(targetPlan.id)}
                         />
                     ) : (
-                        <div className="py-12 text-center bg-white/50 rounded-3xl border border-dashed border-slate-200">
-                            <p className="text-xs font-medium text-slate-300">표시할 말씀이 없습니다.</p>
+                        <div className="py-12 text-center bg-card/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
+                            <p className="text-xs font-medium text-slate-300 dark:text-slate-600">표시할 말씀이 없습니다.</p>
                         </div>
                     )}
                 </section>
@@ -313,47 +329,47 @@ export default function BibleDashboard({
 
                 <section className="space-y-4 pb-4">
                     <div className="flex items-center gap-2 px-1">
-                        <div className="w-1.5 h-4 bg-[#3DAA9C] rounded-full"></div>
-                        <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">YouTube Guide</h3>
+                        <div className="w-1.5 h-4 bg-[#3DAA9C] dark:bg-teal-500 rounded-full"></div>
+                        <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">YouTube Guide</h3>
                     </div>
-                    <div className="space-y-2.5 p-4 rounded-[2rem] bg-slate-50 border border-slate-100/50">
+                    <div className="space-y-2.5 p-4 rounded-[2rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100/50 dark:border-slate-800/50">
                         <a
                             href={new365Link}
                             target="_blank"
-                            className="group flex items-center justify-between bg-[#3DAA9C] px-5 py-4 rounded-2xl text-white shadow-xl shadow-teal-900/10 active:scale-[0.98] transition-all"
+                            className="group flex items-center justify-between bg-[#3DAA9C] dark:bg-teal-600 px-5 py-4 rounded-2xl text-white shadow-xl shadow-teal-900/10 active:scale-[0.98] transition-all"
                         >
                             <div className="flex items-center gap-3.5">
                                 <YoutubeIcon size={22} strokeWidth={2} />
-                                <span className="font-bold text-[14px] tracking-tight">NEW 365 성경 읽기 영상(재생목록)</span>
+                                <span className="font-bold text-[14px] tracking-tight text-white">NEW 365 성경 읽기 영상(재생목록)</span>
                             </div>
-                            <ExternalLink size={16} className="opacity-40 group-hover:translate-x-1 transition-transform" />
+                            <ExternalLink size={16} className="opacity-40 text-white group-hover:translate-x-1 transition-transform" />
                         </a>
 
                         <div className="flex gap-2.5">
                             <a
                                 href={otLink}
                                 target="_blank"
-                                className="flex-1 bg-white p-3.5 rounded-2xl border border-slate-100 flex items-center gap-2 hover:border-indigo-100 hover:shadow-md transition-all group"
+                                className="flex-1 bg-card p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-2 hover:border-indigo-100 dark:hover:border-indigo-900 hover:shadow-md transition-all group"
                             >
-                                <div className="bg-red-50 p-2 rounded-xl text-red-500 group-hover:scale-105 transition-transform">
+                                <div className="bg-red-50 dark:bg-red-900/20 p-2 rounded-xl text-red-500 group-hover:scale-105 transition-transform">
                                     <YoutubeIcon size={16} strokeWidth={2} />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[12px] font-bold text-slate-700 leading-none mb-1">구약 개관</span>
-                                    <span className="text-[8.5px] font-bold text-slate-400 leading-none whitespace-nowrap">(공동체성경읽기)</span>
+                                    <span className="text-[12px] font-bold text-slate-700 dark:text-slate-200 leading-none mb-1">구약 개관</span>
+                                    <span className="text-[8.5px] font-bold text-slate-400 dark:text-slate-500 leading-none whitespace-nowrap">(공동체성경읽기)</span>
                                 </div>
                             </a>
                             <a
                                 href={ntLink}
                                 target="_blank"
-                                className="flex-1 bg-white p-3.5 rounded-2xl border border-slate-100 flex items-center gap-2 hover:border-indigo-100 hover:shadow-md transition-all group"
+                                className="flex-1 bg-card p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-2 hover:border-indigo-100 dark:hover:border-indigo-900 hover:shadow-md transition-all group"
                             >
-                                <div className="bg-red-50 p-2 rounded-xl text-red-500 group-hover:scale-105 transition-transform">
+                                <div className="bg-red-50 dark:bg-red-900/20 p-2 rounded-xl text-red-500 group-hover:scale-105 transition-transform">
                                     <YoutubeIcon size={16} strokeWidth={2} />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[12px] font-bold text-slate-700 leading-none mb-1">신약 개관</span>
-                                    <span className="text-[8.5px] font-bold text-slate-400 leading-none whitespace-nowrap">(공동체성경읽기)</span>
+                                    <span className="text-[12px] font-bold text-slate-700 dark:text-slate-200 leading-none mb-1">신약 개관</span>
+                                    <span className="text-[8.5px] font-bold text-slate-400 dark:text-slate-500 leading-none whitespace-nowrap">(공동체성경읽기)</span>
                                 </div>
                             </a>
                         </div>
@@ -362,8 +378,8 @@ export default function BibleDashboard({
 
                 <section className="space-y-4 pb-12">
                     <div className="flex items-center gap-2 px-1">
-                        <div className="w-1.5 h-4 bg-orange-400 rounded-full"></div>
-                        <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Progress Map</h3>
+                        <div className="w-1.5 h-4 bg-orange-400 dark:bg-orange-500 rounded-full"></div>
+                        <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">Progress Map</h3>
                     </div>
                     <BibleProgressMap completedVerses={completedVerses} />
                 </section>

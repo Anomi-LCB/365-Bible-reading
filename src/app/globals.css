@@ -1,19 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FBFAF8; /* Warm paper-like background */
-  --foreground: #2A313C; /* Soft dark grey for text */
-  --primary: #5961F1;    /* Deep but vibrant indigo */
-  --accent: #8B8EF5;
-  --success: #3DAA9C;   /* Serene teal green */
+  --background: #FBFAF8;
+  --foreground: #2A313C;
+  --card: #FFFFFF;
+  --card-foreground: #2A313C;
+  --primary: #4E56D1;
+  --border: #E2E8F0;
+  --muted: #F8FAFF;
+  --muted-foreground: #94A3B8;
+}
+
+.dark {
+  --background: #0F172A;
+  /* Deep Navy Dark Mode */
+  --foreground: #F8FAFF;
+  --card: #1E293B;
+  --card-foreground: #F8FAFF;
+  --primary: #818CF8;
+  --border: #334155;
+  --muted: #0F172A;
+  --muted-foreground: #64748B;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
-  --color-accent: var(--accent);
-  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
 }
 
 body {

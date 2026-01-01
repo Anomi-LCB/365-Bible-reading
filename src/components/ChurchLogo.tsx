@@ -1,9 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
 
 export default function ChurchLogo() {
+    const { theme } = useTheme();
+    const [mounted, setMounted] = useState(false);
     const [isError, setIsError] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     return (
         <div className="flex justify-center items-center py-4">
@@ -20,7 +27,9 @@ export default function ChurchLogo() {
                             alt="사랑의교회"
                             className="h-11 w-auto object-contain transition-opacity group-hover:opacity-80"
                             style={{
-                                filter: 'brightness(0.3) saturate(4) contrast(1.1) hue-rotate(-10deg) drop-shadow(0 4px 6px rgba(0,0,0,0.1))'
+                                filter: mounted && theme === 'dark'
+                                    ? 'brightness(1.5) saturate(0) contrast(2) invert(1)'
+                                    : 'brightness(0.3) saturate(4) contrast(1.1) hue-rotate(-10deg) drop-shadow(0 4px 6px rgba(0,0,0,0.1))'
                             }}
                             onError={() => setIsError(true)}
                         />

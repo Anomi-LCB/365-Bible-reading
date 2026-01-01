@@ -79,11 +79,11 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
 
     return (
         <>
-            <div className={`flex items-center justify-between bg-white p-2.5 rounded-[2.5rem] border border-slate-100 shadow-sm transition-all hover:shadow-md ${isPending ? 'opacity-50' : ''}`}>
+            <div className={`flex items-center justify-between bg-card p-2.5 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md ${isPending ? 'opacity-50' : ''}`}>
                 <button
                     onClick={handlePrev}
                     disabled={isPending}
-                    className="h-11 w-11 flex items-center justify-center text-slate-300 hover:text-[#4E56D1] hover:bg-indigo-50/50 rounded-full transition-all active:scale-90"
+                    className="h-11 w-11 flex items-center justify-center text-slate-300 dark:text-slate-600 hover:text-[#4E56D1] dark:hover:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/20 rounded-full transition-all active:scale-90"
                 >
                     <ChevronLeft size={20} strokeWidth={2.5} />
                 </button>
@@ -98,15 +98,15 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
                 >
                     <div className={cn(
                         "flex items-center gap-2 transition-all duration-300 font-outfit",
-                        isToday ? "text-[#4E56D1] scale-105" : "text-slate-700 group-hover:text-[#4E56D1]"
+                        isToday ? "text-[#4E56D1] dark:text-indigo-400 scale-105" : "text-slate-700 dark:text-slate-300 group-hover:text-[#4E56D1] dark:group-hover:text-indigo-400"
                     )}>
-                        <Calendar size={14} className={cn("transition-colors", isToday ? "text-[#4E56D1]" : "text-[#4E56D1]/50")} strokeWidth={2.5} />
+                        <Calendar size={14} className={cn("transition-colors", isToday ? "text-[#4E56D1] dark:text-indigo-400" : "text-[#4E56D1]/50 dark:text-indigo-400/50")} strokeWidth={2.5} />
                         <span className="text-[17px] font-bold tracking-tight">
                             {format(dateObj, "yyyy. MM. dd.", { locale: ko })}
                         </span>
                     </div>
                     {isToday && (
-                        <div className="mt-1 flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-[#4E56D1] to-[#3DAA9C] shadow-sm shadow-indigo-100 animate-in slide-in-from-top-1 duration-500">
+                        <div className="mt-1 flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-gradient-to-r from-[#4E56D1] to-[#3DAA9C] shadow-sm shadow-indigo-100 dark:shadow-none animate-in slide-in-from-top-1 duration-500">
                             <Sparkles size={8} className="text-white fill-white" />
                             <span className="text-[9px] font-extrabold text-white uppercase tracking-[0.2em] leading-none">Today</span>
                         </div>
@@ -116,7 +116,7 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
                 <button
                     onClick={handleNext}
                     disabled={isPending}
-                    className="h-11 w-11 flex items-center justify-center text-slate-300 hover:text-[#4E56D1] hover:bg-indigo-50/50 rounded-full transition-all active:scale-90"
+                    className="h-11 w-11 flex items-center justify-center text-slate-300 dark:text-slate-600 hover:text-[#4E56D1] dark:hover:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/20 rounded-full transition-all active:scale-90"
                 >
                     <ChevronRight size={20} strokeWidth={2.5} />
                 </button>
@@ -125,10 +125,10 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
             {/* 캘린더 모달 */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-start justify-center p-6 pt-24 animate-in fade-in duration-300">
-                    <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
-                    <div className="relative w-full max-w-sm bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col">
+                    <div className="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
+                    <div className="relative w-full max-w-sm bg-card rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col border border-slate-100 dark:border-slate-800">
                         {/* 헤더 */}
-                        <div className="bg-[#4E56D1] p-6 pb-5 text-white">
+                        <div className="bg-[#4E56D1] dark:bg-indigo-600 p-6 pb-5 text-white">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-sm font-medium opacity-80 tracking-widest uppercase">Select Date</span>
                                 <button onClick={() => setIsModalOpen(false)} className="p-1 hover:bg-white/10 rounded-lg transition-colors">
@@ -171,8 +171,8 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
                                             className={cn(
                                                 "py-6 rounded-2xl text-xl transition-all",
                                                 viewDate.getMonth() === idx
-                                                    ? "bg-[#4E56D1] text-white shadow-md font-normal"
-                                                    : "text-slate-600 hover:bg-slate-50 font-normal"
+                                                    ? "bg-[#4E56D1] dark:bg-indigo-600 text-white shadow-md font-normal"
+                                                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-normal"
                                             )}
                                         >
                                             {m}
@@ -207,13 +207,12 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
                                                     onClick={() => navigateTo(day)}
                                                     className={cn(
                                                         "h-11 rounded-xl text-xl transition-all font-normal",
-                                                        !isCurrentMonth ? "text-slate-100" :
-                                                            isSelected ? "bg-[#4E56D1] text-white shadow-lg shadow-indigo-100" :
-                                                                "hover:bg-slate-50",
+                                                        !isCurrentMonth ? "text-slate-100 dark:text-slate-800" :
+                                                            isSelected ? "bg-[#4E56D1] dark:bg-indigo-600 text-white shadow-lg shadow-indigo-100 dark:shadow-none" :
+                                                                "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800",
                                                         isCurrentMonth && !isSelected && dayOfWeek === 0 && "text-red-500",
                                                         isCurrentMonth && !isSelected && dayOfWeek === 6 && "text-blue-500",
-                                                        isCurrentMonth && !isSelected && dayOfWeek !== 0 && dayOfWeek !== 6 && "text-slate-600",
-                                                        isTodayDay && !isSelected && "ring-1 ring-inset ring-indigo-100 bg-indigo-50/30"
+                                                        isTodayDay && !isSelected && "ring-1 ring-inset ring-indigo-100 dark:ring-indigo-900 bg-indigo-50/30 dark:bg-indigo-900/10"
                                                     )}
                                                 >
                                                     {format(day, "d")}
@@ -230,7 +229,7 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
                             <div className="px-6 pb-8">
                                 <button
                                     onClick={() => navigateTo(new Date())}
-                                    className="w-full py-4 bg-slate-50 hover:bg-slate-100 text-[#4E56D1] text-base font-normal rounded-2xl transition-all active:scale-[0.98]"
+                                    className="w-full py-4 bg-muted hover:bg-slate-100 dark:hover:bg-slate-800 text-[#4E56D1] dark:text-indigo-400 text-base font-normal rounded-2xl transition-all active:scale-[0.98]"
                                 >
                                     오늘로 이동하기
                                 </button>

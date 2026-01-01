@@ -44,9 +44,9 @@ export default function YoutubePlayer({ selectedDate }: YoutubePlayerProps) {
 
     if (loading) {
         return (
-            <div className="w-full aspect-video bg-slate-100 rounded-3xl flex flex-col items-center justify-center gap-3 animate-pulse">
-                <Loader2 className="w-8 h-8 text-[#4E56D1] animate-spin" />
-                <p className="text-slate-400 text-sm font-medium">오늘의 성경 읽기 영상을 불러오는 중...</p>
+            <div className="w-full aspect-video bg-slate-100 dark:bg-slate-800/50 rounded-3xl flex flex-col items-center justify-center gap-3 animate-pulse">
+                <Loader2 className="w-8 h-8 text-[#4E56D1] dark:text-indigo-400 animate-spin" />
+                <p className="text-slate-400 dark:text-slate-500 text-sm font-medium">오늘의 성경 읽기 영상을 불러오는 중...</p>
             </div>
         );
     }
@@ -55,13 +55,13 @@ export default function YoutubePlayer({ selectedDate }: YoutubePlayerProps) {
 
     if (error || (!currentVideo && dayOfYear !== 246)) {
         return (
-            <div className="w-full p-8 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-center gap-4">
-                <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-                    <Youtube className="w-8 h-8 text-slate-300" />
+            <div className="w-full p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center gap-4">
+                <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center">
+                    <Youtube className="w-8 h-8 text-slate-300 dark:text-slate-600" />
                 </div>
                 <div>
-                    <h3 className="text-slate-600 font-semibold mb-1">영상을 찾을 수 없습니다</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
+                    <h3 className="text-slate-600 dark:text-slate-400 font-semibold mb-1">영상을 찾을 수 없습니다</h3>
+                    <p className="text-slate-400 dark:text-slate-500 text-sm leading-relaxed">
                         해당 날짜의 영상이 재생목록에 없거나<br />
                         API 키 설정이 필요합니다.
                     </p>
@@ -73,11 +73,11 @@ export default function YoutubePlayer({ selectedDate }: YoutubePlayerProps) {
     // 246회 예외 처리 (영상 없음)
     if (dayOfYear === 246) {
         return (
-            <div className="w-full p-8 bg-slate-50 rounded-3xl border border-slate-100 flex flex-col items-center justify-center text-center gap-3">
-                <div className="bg-indigo-50 p-3 rounded-full">
-                    <Youtube className="w-6 h-6 text-[#4E56D1]" />
+            <div className="w-full p-8 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center gap-3">
+                <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-full">
+                    <Youtube className="w-6 h-6 text-[#4E56D1] dark:text-indigo-400" />
                 </div>
-                <p className="text-slate-500 font-medium">{dayOfYear}일차는 영상이 제공되지 않습니다.</p>
+                <p className="text-slate-500 dark:text-slate-400 font-medium">{dayOfYear}일차는 영상이 제공되지 않습니다.</p>
             </div>
         );
     }
@@ -86,19 +86,19 @@ export default function YoutubePlayer({ selectedDate }: YoutubePlayerProps) {
         <div className="w-full space-y-4">
             <div className="flex items-center justify-between px-2">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center">
+                    <div className="w-8 h-8 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center">
                         <Youtube className="w-5 h-5 text-red-500" />
                     </div>
                     <div className="flex flex-col">
-                        <h2 className="text-xl font-bold text-slate-800 leading-none">오늘의 성경 읽기</h2>
+                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 leading-none">오늘의 성경 읽기</h2>
                         {currentVideo?.duration && (
-                            <span className="text-[10px] text-slate-400 font-medium mt-1">
+                            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-1">
                                 소요시간 약 {parseDurationToMinutes(currentVideo.duration)}분
                             </span>
                         )}
                     </div>
                 </div>
-                <span className="text-sm font-semibold px-3 py-1 bg-indigo-50 text-[#4E56D1] rounded-full">
+                <span className="text-sm font-semibold px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-[#4E56D1] dark:text-indigo-400 rounded-full">
                     {dayOfYear}일차
                 </span>
             </div>
@@ -117,10 +117,10 @@ export default function YoutubePlayer({ selectedDate }: YoutubePlayerProps) {
             </div>
 
             <div className="px-2">
-                <h3 className="text-lg font-bold text-slate-700 line-clamp-1">
+                <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 line-clamp-1">
                     {currentVideo!.title}
                 </h3>
-                <p className="text-slate-400 text-sm mt-1">
+                <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">
                     매일 차곡차곡 쌓이는 하나님 나라의 이야기
                 </p>
             </div>
