@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { format, addDays, subDays } from "date-fns";
 import {
-    BookOpen, Trophy, Flame, LogOut,
+    BookOpen, Trophy, Flame,
     Youtube, ExternalLink, PlayCircle,
     MapPin
 } from "lucide-react";
