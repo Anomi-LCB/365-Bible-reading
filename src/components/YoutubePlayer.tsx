@@ -83,29 +83,31 @@ export default function YoutubePlayer({ selectedDate }: YoutubePlayerProps) {
     }
 
     return (
-        <div className="w-full space-y-4">
-            <div className="flex items-center justify-between px-2">
-                <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center">
-                        <Youtube className="w-5 h-5 text-red-500" />
+        <div className="w-full bg-card rounded-[2.5rem] p-6 border border-border dark:border-slate-800 shadow-premium dark:shadow-premium-dark space-y-5">
+            <div className="flex items-center justify-between px-1">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-red-50 dark:bg-red-900/20 rounded-2xl flex items-center justify-center border border-red-100/50 dark:border-red-900/30">
+                        <Youtube className="w-6 h-6 text-red-500" />
                     </div>
                     <div className="flex flex-col">
-                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 leading-none">오늘의 성경 읽기</h2>
+                        <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 leading-none">오늘의 성경 읽기</h2>
                         {currentVideo?.duration && (
-                            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-1">
+                            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium mt-1.5">
                                 소요시간 약 {parseDurationToMinutes(currentVideo.duration)}분
                             </span>
                         )}
                     </div>
                 </div>
-                <span className="text-sm font-semibold px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-[#4E56D1] dark:text-indigo-400 rounded-full">
-                    {dayOfYear}일차
-                </span>
+                <div className="bg-indigo-50 dark:bg-indigo-900/30 px-3.5 py-1.5 rounded-full border border-indigo-100/50 dark:border-indigo-800/50">
+                    <span className="text-[11px] font-black text-[#4E56D1] dark:text-indigo-400 uppercase tracking-wider">
+                        {dayOfYear}일차
+                    </span>
+                </div>
             </div>
 
             <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2rem] blur opacity-15 group-hover:opacity-25 transition duration-500"></div>
-                <div className="relative overflow-hidden rounded-3xl bg-black aspect-video shadow-2xl">
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2.2rem] blur opacity-10 group-hover:opacity-20 transition duration-500"></div>
+                <div className="relative overflow-hidden rounded-[2rem] bg-black aspect-video shadow-xl ring-2 ring-border dark:ring-slate-700">
                     <iframe
                         src={`https://www.youtube.com/embed/${currentVideo!.videoId}?rel=0&modestbranding=1`}
                         title={currentVideo!.title}
@@ -116,11 +118,11 @@ export default function YoutubePlayer({ selectedDate }: YoutubePlayerProps) {
                 </div>
             </div>
 
-            <div className="px-2">
-                <h3 className="text-lg font-bold text-slate-700 dark:text-slate-200 line-clamp-1">
+            <div className="px-1 py-1">
+                <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 line-clamp-1 leading-snug">
                     {currentVideo!.title}
                 </h3>
-                <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">
+                <p className="text-slate-400 dark:text-slate-500 text-[13px] mt-1 font-medium">
                     매일 차곡차곡 쌓이는 하나님 나라의 이야기
                 </p>
             </div>

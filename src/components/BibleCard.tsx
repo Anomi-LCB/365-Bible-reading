@@ -28,11 +28,11 @@ export default function BibleCard({ plan, isCompleted, onToggle }: BibleCardProp
     return (
         <div
             className={cn(
-                "relative overflow-hidden rounded-[2.5rem] p-6 transition-all duration-500",
-                "border bg-card shadow-xl shadow-slate-200/30 dark:shadow-none",
+                "relative overflow-hidden rounded-[2.8rem] p-7 transition-all duration-500",
+                "bg-card shadow-premium dark:shadow-premium-dark ring-1 ring-border dark:ring-slate-800",
                 isCompleted
-                    ? "border-emerald-100/50 dark:border-emerald-900/20 shadow-none opacity-60"
-                    : "border-slate-100 dark:border-slate-800"
+                    ? "border-emerald-100/50 dark:border-emerald-900/20 shadow-none opacity-80"
+                    : ""
             )}
         >
             <div className="flex flex-col gap-5 relative z-10">

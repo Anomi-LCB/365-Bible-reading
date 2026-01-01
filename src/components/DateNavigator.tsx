@@ -79,7 +79,7 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
 
     return (
         <>
-            <div className={`flex items-center justify-between bg-card p-2.5 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md ${isPending ? 'opacity-50' : ''}`}>
+            <div className={`flex items-center justify-between bg-card rounded-[2.5rem] p-4 border border-border dark:border-slate-800 shadow-premium dark:shadow-premium-dark ring-1 ring-border/50 dark:ring-slate-800/50 transition-all hover:shadow-md ${isPending ? 'opacity-50' : ''}`}>
                 <button
                     onClick={handlePrev}
                     disabled={isPending}
@@ -126,7 +126,7 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-start justify-center p-6 pt-24 animate-in fade-in duration-300">
                     <div className="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
-                    <div className="relative w-full max-w-sm bg-card rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col border border-slate-100 dark:border-slate-800">
+                    <div className="relative w-full max-w-sm bg-card/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-[3rem] shadow-premium dark:shadow-premium-dark overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col ring-1 ring-border dark:ring-slate-700">
                         {/* 헤더 */}
                         <div className="bg-[#4E56D1] dark:bg-indigo-600 p-6 pb-5 text-white">
                             <div className="flex items-center justify-between mb-3">
@@ -208,11 +208,11 @@ export default function DateNavigator({ currentDate, onDateChange }: DateNavigat
                                                     className={cn(
                                                         "h-11 rounded-xl text-xl transition-all font-normal",
                                                         !isCurrentMonth ? "text-slate-100 dark:text-slate-800" :
-                                                            isSelected ? "bg-[#4E56D1] dark:bg-indigo-600 text-white shadow-lg shadow-indigo-100 dark:shadow-none" :
-                                                                "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800",
+                                                            isSelected ? "bg-[#4E56D1] dark:bg-indigo-600 text-white shadow-premium dark:shadow-none" :
+                                                                "text-slate-600 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/50",
                                                         isCurrentMonth && !isSelected && dayOfWeek === 0 && "text-red-500",
                                                         isCurrentMonth && !isSelected && dayOfWeek === 6 && "text-blue-500",
-                                                        isTodayDay && !isSelected && "ring-1 ring-inset ring-indigo-100 dark:ring-indigo-900 bg-indigo-50/30 dark:bg-indigo-900/10"
+                                                        isTodayDay && !isSelected && "ring-1 ring-inset ring-indigo-200/50 dark:ring-indigo-800/50 bg-indigo-50/50 dark:bg-indigo-900/10"
                                                     )}
                                                 >
                                                     {format(day, "d")}

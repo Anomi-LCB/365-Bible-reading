@@ -28,8 +28,8 @@ export default function ChurchLogo() {
                             className="h-11 w-auto object-contain transition-opacity group-hover:opacity-80"
                             style={{
                                 filter: mounted && theme === 'dark'
-                                    ? 'brightness(1.5) saturate(0) contrast(2) invert(1)'
-                                    : 'brightness(0.3) saturate(4) contrast(1.1) hue-rotate(-10deg) drop-shadow(0 4px 6px rgba(0,0,0,0.1))'
+                                    ? 'brightness(0) invert(1)'
+                                    : 'brightness(0)'
                             }}
                             onError={() => setIsError(true)}
                         />

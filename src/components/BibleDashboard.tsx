@@ -5,7 +5,7 @@ import { format, addDays, subDays } from "date-fns";
 import {
     BookOpen, Trophy, Flame,
     Youtube, ExternalLink, PlayCircle,
-    MapPin, Moon, Sun
+    Moon, Sun, Quote, Sparkles
 } from "lucide-react";
 import { BibleReadingPlan } from "@/types/bible";
 import DateNavigator from "./DateNavigator";
@@ -231,7 +231,7 @@ export default function BibleDashboard({
 
     return (
         <main className="min-h-screen bg-background text-foreground antialiased tracking-normal flex flex-col transition-colors duration-300">
-            <header className="sticky top-0 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-slate-200/40 dark:border-slate-800/40 flex items-center justify-between px-5 py-3">
+            <header className="sticky top-0 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-b border-border/80 dark:border-slate-800/80 flex items-center justify-between px-5 py-3">
                 <div className="flex items-center gap-2.5">
                     <div className="bg-[#4E56D1] dark:bg-indigo-500 p-1.5 rounded-lg shadow-sm">
                         <BookOpen className="text-white" size={15} strokeWidth={2.5} />
@@ -243,44 +243,44 @@ export default function BibleDashboard({
                     {mounted && (
                         <button
                             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                            className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400"
+                            className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400 border border-slate-100 dark:border-slate-800 shadow-sm"
                         >
-                            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
                         </button>
                     )}
-                    <a
-                        href={introLink}
-                        target="_blank"
-                        className="flex items-center gap-1.5 bg-[#F8FAFF] dark:bg-slate-800 border border-indigo-50 dark:border-slate-700 px-3 py-1.5 rounded-full text-[10px] font-semibold text-[#4E56D1] dark:text-indigo-400 hover:bg-white dark:hover:bg-slate-700 transition-all shadow-sm"
-                    >
-                        <PlayCircle size={12} strokeWidth={2} />
-                        공동체 성경읽기란?
-                    </a>
                 </div>
             </header>
 
             <div className="max-w-md mx-auto px-5 py-6 pb-0 space-y-7 flex-grow w-full">
-                <section className="space-y-5">
+                <section className="space-y-6">
                     <DateNavigator
                         currentDate={selectedDate}
                         onDateChange={handleDateChange}
                     />
-                    {weather && (
-                        <div className="flex justify-center items-center gap-4 text-[10px] font-medium tracking-wider text-[#94A3B8] uppercase">
-                            <div className="flex items-center gap-1.5 border-r border-slate-200/60 dark:border-slate-700/60 pr-4">
-                                <MapPin size={11} className="text-[#4E56D1]/30 dark:text-indigo-400/30" strokeWidth={2.5} />
-                                <span>Mokpo</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-slate-600 dark:text-slate-300 font-semibold">{weather.temp}°C</span>
-                                <span className="text-slate-400 dark:text-slate-500">{weather.description}</span>
-                            </div>
+
+                    {/* Today's Scripture (Verse/Theme) Replacement for Weather */}
+                    <div className="bg-card rounded-3xl p-5 border border-border dark:border-slate-800 shadow-premium dark:shadow-premium-dark flex flex-col items-center text-center space-y-2">
+                        <div className="bg-indigo-50 dark:bg-indigo-900/30 p-1.5 rounded-full mb-1">
+                            <Quote size={12} className="text-[#4E56D1] dark:text-indigo-400" strokeWidth={3} />
                         </div>
-                    )}
+                        <h4 className="text-[10px] font-black text-[#4E56D1] dark:text-indigo-400 uppercase tracking-[0.2em] opacity-80">Today's Reflection</h4>
+                        <div className="space-y-1">
+                            <p className="text-[15px] font-bold text-slate-700 dark:text-slate-200 leading-tight">
+                                {targetPlan ? (
+                                    generateKeywords(targetPlan.verses).split(' ').slice(0, 3).join(' ')
+                                ) : (
+                                    "#말씀 #묵상 #성경읽기"
+                                )}
+                            </p>
+                            <p className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                                {targetPlan?.title || "오늘의 말씀을 준비 중입니다."}
+                            </p>
+                        </div>
+                    </div>
                 </section>
 
                 <section className="flex gap-3">
-                    <div className="flex-1 bg-card p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center gap-3.5 shadow-sm">
+                    <div className="flex-1 bg-card p-4 rounded-3xl border border-border dark:border-slate-800 flex items-center gap-3.5 shadow-premium dark:shadow-premium-dark">
                         <div className="bg-orange-50 dark:bg-orange-900/20 p-2 rounded-xl">
                             <Flame size={16} className="text-orange-500" strokeWidth={2} />
                         </div>
@@ -289,7 +289,7 @@ export default function BibleDashboard({
                             <p className="text-base font-bold text-slate-800 dark:text-slate-100 leading-none">{streak}일</p>
                         </div>
                     </div>
-                    <div className="flex-1 bg-card p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center gap-3.5 shadow-sm">
+                    <div className="flex-1 bg-card p-4 rounded-3xl border border-border dark:border-slate-800 flex items-center gap-3.5 shadow-premium dark:shadow-premium-dark">
                         <div className="bg-[#E6F7F5] dark:bg-teal-900/20 p-2 rounded-xl">
                             <Trophy size={16} className="text-[#3DAA9C]" strokeWidth={2} />
                         </div>
@@ -326,13 +326,22 @@ export default function BibleDashboard({
                 <section className="space-y-3">
                     <YoutubePlayer selectedDate={selectedDate} />
                 </section>
-
                 <section className="space-y-4 pb-4">
-                    <div className="flex items-center gap-2 px-1">
-                        <div className="w-1.5 h-4 bg-[#3DAA9C] dark:bg-teal-500 rounded-full"></div>
-                        <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">YouTube Guide</h3>
+                    <div className="flex items-center justify-between px-1">
+                        <div className="flex items-center gap-2">
+                            <div className="w-1.5 h-4 bg-[#3DAA9C] dark:bg-teal-500 rounded-full"></div>
+                            <h3 className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">YouTube Guide</h3>
+                        </div>
+                        <a
+                            href={introLink}
+                            target="_blank"
+                            className="flex items-center gap-1.5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 px-3 py-1.5 rounded-full text-[10px] font-semibold text-slate-500 dark:text-slate-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition-all shadow-sm"
+                        >
+                            <PlayCircle size={12} strokeWidth={2} />
+                            소개 영상
+                        </a>
                     </div>
-                    <div className="space-y-2.5 p-4 rounded-[2rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100/50 dark:border-slate-800/50">
+                    <div className="space-y-2.5 p-4 rounded-[2rem] bg-slate-50 dark:bg-slate-900/30 border border-border dark:border-slate-800/50 shadow-inner">
                         <a
                             href={new365Link}
                             target="_blank"
@@ -386,6 +395,6 @@ export default function BibleDashboard({
             </div>
 
             <ChurchLogo />
-        </main>
+        </main >
     );
 }
