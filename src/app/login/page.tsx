@@ -61,6 +61,7 @@ export default function LoginPage() {
     };
 
     const handleGuestLogin = () => {
+        setIsLoading(true);
         signInAsGuest(keepLoggedIn);
     };
 
@@ -122,10 +123,11 @@ export default function LoginPage() {
                                 <div className="pt-2">
                                     <button
                                         onClick={handleGuestLogin}
-                                        className="w-full flex items-center justify-center gap-4 bg-slate-100/50 py-3.5 rounded-2xl font-bold text-xs text-[#64748B] hover:bg-slate-100 transition-all"
+                                        disabled={isLoading}
+                                        className="w-full flex items-center justify-center gap-4 bg-slate-100/50 py-3.5 rounded-2xl font-bold text-xs text-[#64748B] hover:bg-slate-100 transition-all disabled:opacity-50"
                                     >
                                         <User className="w-4 h-4" />
-                                        게스트로 입장하기
+                                        {isLoading ? "입장 중..." : "게스트로 입장하기"}
                                     </button>
                                 </div>
                             </div>
