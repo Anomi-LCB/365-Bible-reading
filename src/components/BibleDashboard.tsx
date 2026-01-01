@@ -16,7 +16,6 @@ import { createClient } from "@/lib/supabase-client";
 import { useRouter, useSearchParams } from "next/navigation";
 import ChurchLogo from "./ChurchLogo";
 import { getOfficialCategory, generateKeywords, calculateReadingTime } from "@/lib/bible-utils";
-import { signOut as centralizedSignOut } from "@/actions/auth";
 import YoutubePlayer from "./YoutubePlayer";
 
 interface BibleDashboardProps {
@@ -191,9 +190,7 @@ export default function BibleDashboard({
         }
     };
 
-    const handleSignOut = async () => {
-        await centralizedSignOut();
-    };
+    // SignOut 로직 제거 (게스트 전용 모드)
 
     const introLink = appSettings?.find((s: any) => s.key === 'intro_video_url')?.value || "https://youtu.be/Sp71zxZjZIk?si=PJX1eyh59eILNc9D";
     const new365Link = appSettings?.find((s: any) => s.key === 'new_365_video_url')?.value || "https://www.youtube.com/playlist?list=PLVcVykBcFZTR4Q6cvmybjPgCklZlv-Ghj";
@@ -219,12 +216,6 @@ export default function BibleDashboard({
                         <PlayCircle size={12} strokeWidth={2} />
                         공동체 성경읽기란?
                     </a>
-                    <button
-                        onClick={handleSignOut}
-                        className="p-2 text-slate-300 hover:text-red-400 transition-colors"
-                    >
-                        <LogOut size={18} strokeWidth={2} />
-                    </button>
                 </div>
             </header>
 
