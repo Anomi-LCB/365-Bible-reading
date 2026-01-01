@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import BibleDashboard from "@/components/BibleDashboard";
 import { getMokpoWeather } from "@/lib/weather";
 
@@ -14,7 +15,10 @@ export default async function Home({ searchParams }: HomeProps) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  const cookieStore = await cookies();
+  const isGuest = cookieStore.get('guest_mode')?.value === 'true';
+
+  if (!user && !isGuest) {
     redirect("/login");
   }
 
@@ -34,11 +38,15 @@ export default async function Home({ searchParams }: HomeProps) {
     .from("app_settings")
     .select("key, value");
 
-  // 사용자 전체 진행 상황 가져오기
-  const { data: allProgress } = await supabase
-    .from("user_progress")
-    .select("plan_id, completed_at, reading_plan(*)")
-    .eq("user_id", user.id);
+  // 사용자 전체 진행 상황 가져오기 (로그인 유저일 때만)
+  let allProgress: any[] = [];
+  if (user) {
+    const { data: progressData } = await supabase
+      .from("user_progress")
+      .select("plan_id, completed_at, reading_plan(*)")
+      .eq("user_id", user.id);
+    allProgress = progressData || [];
+  }
 
   return (
     <BibleDashboard
